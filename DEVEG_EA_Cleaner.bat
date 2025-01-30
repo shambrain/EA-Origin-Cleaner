@@ -71,6 +71,10 @@ call :echo_info "Cleanup complete!"
 echo [INFO] Please restart your computer before reinstalling EA App.
 echo [INFO] Please restart your computer before reinstalling EA App. >> "%LOGFILE%"
 echo Log End Time: %DATE% %TIME% >> "%LOGFILE%"
+
+:: Pause before exiting, to show the final message and allow user to read
+echo.
+echo [INFO] Cleanup process has been completed. You may now close this window.
 pause
 exit
 
@@ -279,17 +283,26 @@ exit
 
 :: Function to flush DNS
 :flush_dns
-    call :progress_bar "Flushing DNS cache" 0 5
+    call :progress_bar "Flushing DNS cache" 0 35
     ipconfig /flushdns >> "%LOGFILE%" 2>&1
-    call :echo_info "DNS cache flushed."
+    if %ERRORLEVEL% EQU 0 (
+        call :echo_info "DNS cache flushed successfully."
+    ) else (
+        call :echo_warning "Failed to flush DNS cache."
+    )
+
+    call :progress_bar "Flushing DNS" 35 40
+    echo [DONE] DNS cache flushed. >> "%LOGFILE%"
+    echo [DONE] DNS cache flushed.
     exit /b
 
-:: Function to restart Windows Explorer
+:: Function to restart Explorer
 :restart_explorer
-    call :progress_bar "Restarting Windows Explorer" 0 5
+    call :progress_bar "Restarting Windows Explorer" 0 45
     taskkill /f /im explorer.exe >> "%LOGFILE%" 2>&1
     start explorer.exe >> "%LOGFILE%" 2>&1
     call :echo_info "Windows Explorer restarted."
+    call :progress_bar "Restarting Explorer" 45 50
     exit /b
 
 :: Function to check for remaining issues
