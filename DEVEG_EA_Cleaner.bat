@@ -62,6 +62,9 @@ call :flush_dns
 :: Step 6: Restart Windows Explorer
 call :restart_explorer
 
+:: Step 7: Steam EA Game Fix - Link Fix
+call :steam_ea_game_fix
+
 :: Check and log remaining issues after steps
 call :check_remaining_issues
 
@@ -128,6 +131,28 @@ exit
     ) else (
         call :echo_warning "No EA games found in Steam directory."
     )
+    exit /b
+
+:: Function to fix Steam EA game link issue
+:steam_ea_game_fix
+    echo [INFO] Fixing EA game link for Steam...
+    echo [INFO] Fixing EA game link for Steam... >> "%LOGFILE%"
+
+    :: Check if the Steam library folder is linked correctly
+    set "STEAM_LIB_PATH=%STEAM_PATH%\EA"
+    if exist "%STEAM_LIB_PATH%" (
+        call :echo_info "Steam EA library folder found."
+    ) else (
+        call :echo_warning "Steam EA library folder not found, creating new link..."
+        mklink /D "%STEAM_LIB_PATH%" "C:\Program Files (x86)\Origin Games" >> "%LOGFILE%" 2>&1
+        if %ERRORLEVEL% EQU 0 (
+            call :echo_info "Successfully created Steam EA library link."
+        ) else (
+            call :echo_error "Failed to create Steam EA library link."
+        )
+    )
+
+    call :progress_bar "Fixing Steam EA link" 50 60
     exit /b
 
 :: Function to stop EA & Origin processes
@@ -233,55 +258,25 @@ exit
 
 :: Function to delete leftover files
 :delete_leftover_files
-    call :progress_bar "Deleting EA & Origin files" 0 20
-    rd /s /q "%ProgramData%\Electronic Arts" >> "%LOGFILE%" 2>&1
+    call :progress_bar "Deleting leftover files" 25 35
+    rd /s /q "C:\Program Files (x86)\Origin" >> "%LOGFILE%" 2>&1
+    rd /s /q "C:\Program Files (x86)\EA Games" >> "%LOGFILE%" 2>&1
+    rd /s /q "%APPDATA%\Electronic Arts" >> "%LOGFILE%" 2>&1
+    rd /s /q "%APPDATA%\Origin" >> "%LOGFILE%" 2>&1
+    rd /s /q "%LOCALAPPDATA%\Origin" >> "%LOGFILE%" 2>&1
+
     if %ERRORLEVEL% EQU 0 (
-        call :echo_info "Deleted Electronic Arts directory from ProgramData."
+        call :echo_info "Successfully deleted leftover files."
     ) else (
-        call :echo_warning "Electronic Arts directory not found in ProgramData."
+        call :echo_warning "Failed to delete some leftover files."
     )
 
-    rd /s /q "%ProgramData%\Origin" >> "%LOGFILE%" 2>&1
-    if %ERRORLEVEL% EQU 0 (
-        call :echo_info "Deleted Origin directory from ProgramData."
-    ) else (
-        call :echo_warning "Origin directory not found in ProgramData."
-    )
-
-    rd /s /q "%AppData%\Local\Electronic Arts" >> "%LOGFILE%" 2>&1
-    if %ERRORLEVEL% EQU 0 (
-        call :echo_info "Deleted Electronic Arts directory from AppData."
-    ) else (
-        call :echo_warning "Electronic Arts directory not found in AppData."
-    )
-
-    rd /s /q "%AppData%\Roaming\Electronic Arts" >> "%LOGFILE%" 2>&1
-    if %ERRORLEVEL% EQU 0 (
-        call :echo_info "Deleted Roaming/Electronic Arts directory from AppData."
-    ) else (
-        call :echo_warning "Roaming/Electronic Arts directory not found in AppData."
-    )
-
-    rd /s /q "%AppData%\Local\Origin" >> "%LOGFILE%" 2>&1
-    if %ERRORLEVEL% EQU 0 (
-        call :echo_info "Deleted Local/Origin directory from AppData."
-    ) else (
-        call :echo_warning "Local/Origin directory not found in AppData."
-    )
-
-    rd /s /q "%AppData%\Roaming\Origin" >> "%LOGFILE%" 2>&1
-    if %ERRORLEVEL% EQU 0 (
-        call :echo_info "Deleted Roaming/Origin directory from AppData."
-    ) else (
-        call :echo_warning "Roaming/Origin directory not found in AppData."
-    )
-
-    call :progress_bar "Deleting files" 20 30
-    echo [DONE] Files deleted. >> "%LOGFILE%"
-    echo [DONE] Files deleted.
+    call :progress_bar "Deleting leftover files" 35 40
+    echo [DONE] Leftover files deleted. >> "%LOGFILE%"
+    echo [DONE] Leftover files deleted.
     exit /b
 
-:: Function to flush DNS
+:: Function to flush DNS cache
 :flush_dns
     call :progress_bar "Flushing DNS cache" 0 35
     ipconfig /flushdns >> "%LOGFILE%" 2>&1
