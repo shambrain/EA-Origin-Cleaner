@@ -1,4 +1,4 @@
-# DEVEG EA & Origin Cleaner
+# EA & Origin Cleaner
 ![Image](https://github.com/user-attachments/assets/7e19ec29-ad5b-47d6-8e51-0e3d70eeca90)
 ## 🛠 Overview
 **DEVEG EA & Origin Cleaner** is a **pinpoint-accurate** batch script that completely removes **EA App & Origin** from your Windows system. It is designed to fix misconfiguration issues that prevent games like **Plants vs. Zombies: Garden Warfare 2 (PVZ GW2)** from launching properly on Steam.
