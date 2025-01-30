@@ -1,4 +1,3 @@
-# EA-Origin-Cleaner
 # DEVEG EA & Origin Cleaner
 
 ## 🛠 Overview
