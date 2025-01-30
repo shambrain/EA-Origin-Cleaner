@@ -4,7 +4,7 @@
 ## 🛠 Note: Powershell is required to run the code 
 install using 
 ```
-"winget install --id Microsoft.PowerShell --source winget"
+winget install --id Microsoft.PowerShell --source winget
 
 ```
 
