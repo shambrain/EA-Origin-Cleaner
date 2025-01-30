@@ -4,13 +4,13 @@ cls
 :: Set console background color to purple (5F)
 color 5F
 
-:: Create a big title using ASCII art
+:: Create a more compact, readable ASCII logo
 echo.
-echo      DDDD    EEEEE    V   V    EEEEE    GGG   EA & Origin Cleaner
-echo      D   D   E        V   V    E       G       E   A   Cleaner
-echo      D   D   EEEE     V   V    EEEE    G  GG   EA   Cleaner  
-echo      D   D   E        V   V    E       G   G    E   A  Cleaner
-echo      DDDD    EEEEE    V   V    EEEEE    GGG    EA   Cleaner
+echo   DDDD   EEEEE   V   V   EEEEE   GGG   EA & Origin Cleaner
+echo   D   D   E       V   V   E      G       E   A   Cleaner
+echo   D   D   EEEE    V   V   EEEE   G  GG   EA   Cleaner  
+echo   D   D   E       V   V   E      G   G   E   A  Cleaner
+echo   DDDD   EEEEE   V   V   EEEEE   GGG    EA   Cleaner
 echo.
 
 :: Display the title again at the bottom of the script to keep it visible
