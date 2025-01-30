@@ -9,7 +9,7 @@ winget install --id Microsoft.PowerShell --source winget
 ```
 
 ## 🛠 Overview
-**DEVEG EA & Origin Cleaner** is a **pinpoint-accurate** batch script that completely removes **EA App & Origin** from your Windows system. It is designed to fix misconfiguration issues that prevent games like **Plants vs. Zombies: Garden Warfare 2 (PVZ GW2)** from launching properly on Steam.
+**DEVEG EA & Origin Cleaner** is a batch script that completely removes **EA App & Origin** from your Windows system. It is designed to fix misconfiguration issues that prevent games like **Plants vs. Zombies: Garden Warfare 2 (PVZ GW2)** from launching properly on Steam.
 
 ## 🚀 Features
 ✔ **100% Removal of EA & Origin** - Deletes all files, registry entries, and settings.
@@ -40,20 +40,13 @@ winget install --id Microsoft.PowerShell --source winget
 - **Clears EA login cache and temporary files**
 
 
-## 📝 Log File
-A detailed log of the cleanup process is saved as **`DEVEG_Cleanup_Log.txt`** in the script's directory.
-
 ## ⚠ Warnings
 🚨 **This script permanently deletes all EA & Origin-related data.** Backup your data if needed.
 🚨 **Only run this script if you are facing issues with EA game launches.**
 🚨 **After running the script, restart your PC before reinstalling EA App.**
 
-## 📌 Credits
-**Developed by DEVEG** - Providing accurate and efficient software solutions.
 
 ## 📄 License
 This project is licensed under the **MIT License**. Feel free to modify and distribute it.
 
----
-🎯 **Now, your EA games should work correctly on your current Windows user account!** 🚀
 
