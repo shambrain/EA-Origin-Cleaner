@@ -20,7 +20,7 @@ winget install --id Microsoft.PowerShell --source winget
 ✔ **User-Friendly & Branded for DEVEG** - Interactive prompts and clear instructions.
 
 ## 📜 How to Use
-1. **Download** the script [`DEVEG_EA_Cleaner.bat`](DEVEG_EA_Cleaner.ps1).
+1. **Download** the script [`DEVEG_EA_Cleaner.ps1`](DEVEG_EA_Cleaner.ps1).
 2. **Right-click** on the file and select **Run as Administrator**.
 3. Follow the on-screen instructions.
 4. **Restart your PC** after the cleanup is complete.
