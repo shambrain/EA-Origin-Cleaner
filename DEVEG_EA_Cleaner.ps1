@@ -40,7 +40,7 @@ if ($uninstallChoice -match "^[Yy]$") {
 Pause
 
 # Fix Steam EA Game Linking
-Write-Host "🔧 Fixing Steam-EA Game Linking..." -ForegroundColor Cyan
+Write-Host " Fixing Steam-EA Game Linking..." -ForegroundColor Cyan
 $SteamPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common"
 $EARegistryPath = "HKCU:\\Software\\Electronic Arts"
 $SteamRegistryPath = "HKCU:\\Software\\Valve\\Steam\\Apps"
@@ -48,7 +48,7 @@ $LinkedAccountsPath = "HKCU:\\Software\\Electronic Arts\\EA Desktop\\Linked Acco
 
 # Backup registry before removing (Only if the registry exists)
 $backupFile = "$PSScriptRoot\EA_Steam_Registry_Backup.reg"
-Write-Host "🔍 Checking if registry paths exist before exporting..." -ForegroundColor Cyan
+Write-Host " Checking if registry paths exist before exporting..." -ForegroundColor Cyan
 if (Test-Path "Registry::$EARegistryPath") {
     reg export "HKCU\Software\Electronic Arts" "$backupFile" /y
     Write-Host "EA registry backup created." -ForegroundColor Green
@@ -65,7 +65,7 @@ if (Test-Path "Registry::$SteamRegistryPath") {
 Pause
 
 # Remove broken registry keys
-Write-Host "🗑 Removing broken EA & Steam registry entries..." -ForegroundColor Cyan
+Write-Host " Removing broken EA & Steam registry entries..." -ForegroundColor Cyan
 Remove-Item -Path "Registry::$EARegistryPath" -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item -Path "Registry::$SteamRegistryPath" -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item -Path "Registry::$LinkedAccountsPath" -Recurse -Force -ErrorAction SilentlyContinue
@@ -73,7 +73,7 @@ Write-Host "EA & Steam registry cleanup completed." -ForegroundColor Green
 Pause
 
 # Remove corrupted cache and configs
-Write-Host "🗑 Clearing EA configuration and cache data..." -ForegroundColor Cyan
+Write-Host " Clearing EA configuration and cache data..." -ForegroundColor Cyan
 $ConfigPaths = @(
     "$env:LocalAppData\\Electronic Arts",
     "$env:LocalAppData\\Origin",
@@ -103,7 +103,7 @@ Write-Host "Steam restarted successfully." -ForegroundColor Green
 Pause
 
 # Ensure Steam-EA connection is restored
-Write-Host "🔍 Checking Steam-EA Account Link..." -ForegroundColor Cyan
+Write-Host " Checking Steam-EA Account Link..." -ForegroundColor Cyan
 $SteamRegistryKey = Get-ItemProperty -Path "HKCU:\\Software\\Valve\\Steam" -Name "SteamPath" -ErrorAction SilentlyContinue
 if ($SteamRegistryKey) {
     Write-Host " Steam detected with the proper registry entries." -ForegroundColor Green
@@ -118,14 +118,14 @@ if ($restartChoice -match "^[Yy]$") {
     Write-Host "Restarting PC..." -ForegroundColor Cyan
     Restart-Computer -Force
 } else {
-    Write-Host "ℹYou can restart later to apply changes." -ForegroundColor Green
+    Write-Host "You can restart later to apply changes." -ForegroundColor Green
 }
 
 # Save log file
 $logPath = "$PSScriptRoot\DEVEG_Cleanup_Log.txt"
-Write-Host "💾 Saving log file to $logPath..." -ForegroundColor Cyan
+Write-Host "Saving log file to $logPath..." -ForegroundColor Cyan
 "EA Cleanup Log - $(Get-Date)" | Out-File -FilePath $logPath -Append
-Write-Host "✅ Log file saved." -ForegroundColor Green
+Write-Host " Log file saved." -ForegroundColor Green
 
-Write-Host "`n✅✅✅ Fix Complete! Press any key to exit." -ForegroundColor Green
+Write-Host "`n Fix Complete! Press any key to exit." -ForegroundColor Green
 Pause
