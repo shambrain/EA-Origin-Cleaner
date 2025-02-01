@@ -35,7 +35,7 @@ if ($uninstallChoice -match "^[Yy]$") {
             Remove-Item $path -Recurse -Force -ErrorAction SilentlyContinue
         }
     }
-    Write-Host "✅ EA App / Origin has been uninstalled and all files deleted." -ForegroundColor Green
+    Write-Host "EA App / Origin has been uninstalled and all files deleted." -ForegroundColor Green
 }
 Pause
 
@@ -51,16 +51,16 @@ $backupFile = "$PSScriptRoot\EA_Steam_Registry_Backup.reg"
 Write-Host "🔍 Checking if registry paths exist before exporting..." -ForegroundColor Cyan
 if (Test-Path "Registry::$EARegistryPath") {
     reg export "HKCU\Software\Electronic Arts" "$backupFile" /y
-    Write-Host "✅ EA registry backup created." -ForegroundColor Green
+    Write-Host "EA registry backup created." -ForegroundColor Green
 } else {
-    Write-Host "⚠️ EA registry not found. Skipping backup." -ForegroundColor Yellow
+    Write-Host " EA registry not found. Skipping backup." -ForegroundColor Yellow
 }
 
 if (Test-Path "Registry::$SteamRegistryPath") {
     reg export "HKCU\Software\Valve\Steam\Apps" "$backupFile" /y
-    Write-Host "✅ Steam registry backup created." -ForegroundColor Green
+    Write-Host "Steam registry backup created." -ForegroundColor Green
 } else {
-    Write-Host "⚠️ Steam registry not found. Skipping backup." -ForegroundColor Yellow
+    Write-Host "Steam registry not found. Skipping backup." -ForegroundColor Yellow
 }
 Pause
 
@@ -69,7 +69,7 @@ Write-Host "🗑 Removing broken EA & Steam registry entries..." -ForegroundColo
 Remove-Item -Path "Registry::$EARegistryPath" -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item -Path "Registry::$SteamRegistryPath" -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item -Path "Registry::$LinkedAccountsPath" -Recurse -Force -ErrorAction SilentlyContinue
-Write-Host "✅ EA & Steam registry cleanup completed." -ForegroundColor Green
+Write-Host "EA & Steam registry cleanup completed." -ForegroundColor Green
 Pause
 
 # Remove corrupted cache and configs
@@ -85,40 +85,40 @@ foreach ($path in $ConfigPaths) {
         Remove-Item $path -Recurse -Force -ErrorAction SilentlyContinue
     }
 }
-Write-Host "✅ Cache and config data cleared." -ForegroundColor Green
+Write-Host " Cache and config data cleared." -ForegroundColor Green
 Pause
 
 # Restart EA Background Service
-Write-Host "🔄 Restarting EA Background Service..." -ForegroundColor Cyan
+Write-Host "Restarting EA Background Service..." -ForegroundColor Cyan
 Stop-Service -Name "EABackgroundService" -Force -ErrorAction SilentlyContinue
 Start-Service -Name "EABackgroundService" -ErrorAction SilentlyContinue
-Write-Host "✅ EA Background Service restarted." -ForegroundColor Green
+Write-Host " EA Background Service restarted." -ForegroundColor Green
 Pause
 
 # Restart Steam to Apply Fixes
-Write-Host "🔄 Restarting Steam..." -ForegroundColor Cyan
+Write-Host " Restarting Steam..." -ForegroundColor Cyan
 Stop-Process -Name "Steam" -Force -ErrorAction SilentlyContinue
 Start-Process "C:\\Program Files (x86)\\Steam\\Steam.exe"
-Write-Host "✅ Steam restarted successfully." -ForegroundColor Green
+Write-Host "Steam restarted successfully." -ForegroundColor Green
 Pause
 
 # Ensure Steam-EA connection is restored
 Write-Host "🔍 Checking Steam-EA Account Link..." -ForegroundColor Cyan
 $SteamRegistryKey = Get-ItemProperty -Path "HKCU:\\Software\\Valve\\Steam" -Name "SteamPath" -ErrorAction SilentlyContinue
 if ($SteamRegistryKey) {
-    Write-Host "✅ Steam detected with the proper registry entries." -ForegroundColor Green
+    Write-Host " Steam detected with the proper registry entries." -ForegroundColor Green
 } else {
-    Write-Host "❌ Steam installation missing in registry. Please reinstall Steam." -ForegroundColor Red
+    Write-Host " Steam installation missing in registry. Please reinstall Steam." -ForegroundColor Red
 }
 Pause
 
 # Optionally restart PC
 $restartChoice = Read-Host "Would you like to restart your PC to finalize changes? (Y/N)"
 if ($restartChoice -match "^[Yy]$") {
-    Write-Host "🔄 Restarting PC..." -ForegroundColor Cyan
+    Write-Host "Restarting PC..." -ForegroundColor Cyan
     Restart-Computer -Force
 } else {
-    Write-Host "ℹ️ You can restart later to apply changes." -ForegroundColor Green
+    Write-Host "ℹYou can restart later to apply changes." -ForegroundColor Green
 }
 
 # Save log file
