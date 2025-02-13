@@ -1,8 +1,8 @@
 # EA & Origin Cleaner
 ![Image](https://github.com/user-attachments/assets/ee68f935-937a-4ddc-b0d1-395d57789d29)
 
-## 🛠 Note: Powershell is required to run the code 
-install using 
+## 🛠 Note: PowerShell is required to run this script.
+Install it using:
 ```
 winget install --id Microsoft.PowerShell --source winget
 
